@@ -1,0 +1,38 @@
+{
+  "name": "redux-data-structures",
+  "version": "0.1.0",
+  "description": "Creator functions for common reducers",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codologytools/redux-data-structures.git"
+  },
+  "keywords": [
+    "redux",
+    "reducer",
+    "data",
+    "structure",
+    "boolean",
+    "counter",
+    "map",
+    "queue",
+    "set",
+    "toggle",
+    "value"
+  ],
+  "author": "Adrien Trouillaud",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codologytools/redux-data-structures/issues"
+  },
+  "homepage": "https://github.com/codologytools/redux-data-structures#readme",
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "jest": "^20.0.4"
+  }
+}
