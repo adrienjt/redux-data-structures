@@ -1,16 +1,20 @@
+const empty = {
+  byId: {},
+  allIds: [],
+};
+
 export default ({
-  // TODO initial state
+  initialState = empty,
   addActionTypes = [],
   changeActionTypes = [],
   removeActionTypes = [],
   keyGetter = action => action.payload.id,
   itemGetter = action => ({...action.payload}),
   itemModifier = (item, action) => ({...item, ...action.payload}),
+  resetActionTypes = [],
+  emptyActionTypes = [],
 }) => (
-  state = {
-    byId: {},
-    allIds: [],
-  },
+  state = initialState,
   action,
 ) => {
   const {type} = action;
@@ -20,6 +24,10 @@ export default ({
     return change(state, action, keyGetter, itemModifier);
   } else if (removeActionTypes.includes(type)) {
     return remove(state, action, keyGetter);
+  } else if (resetActionTypes.includes(type)) {
+    return initialState;
+  } else if (emptyActionTypes.includes(type)) {
+    return empty;
   } else {
     return state;
   }

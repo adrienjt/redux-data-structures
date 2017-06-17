@@ -1,6 +1,6 @@
 import value from '../value';
 
-import * as types from '../testActionTypes';
+const ACTION_TYPE_1 = 'ACTION_TYPE_1';
 
 const value1 = 'value1';
 const value2 = 'value2';
@@ -9,9 +9,9 @@ describe('value', () => {
   it('set with default getter', () => {
     expect(
       value({
-        setActionTypes: [types.ACTION_TYPE_1],
+        setActionTypes: [ACTION_TYPE_1],
       })(undefined, {
-        type: types.ACTION_TYPE_1,
+        type: ACTION_TYPE_1,
         payload: value1,
       })
     ).toEqual(value1);
@@ -21,8 +21,8 @@ describe('value', () => {
     expect(
       value({
         initialState: value1,
-        resetActionTypes: [types.ACTION_TYPE_1],
-      })(value2, {type: types.ACTION_TYPE_1})
+        resetActionTypes: [ACTION_TYPE_1],
+      })(value2, {type: ACTION_TYPE_1})
     ).toEqual(value1);
   });
 });

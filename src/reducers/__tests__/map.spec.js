@@ -1,6 +1,6 @@
 import map from '../map';
 
-import * as types from '../testActionTypes';
+const ACTION_TYPE_1 = 'ACTION_TYPE_1';
 
 const key = 'myId';
 const name = 'myName';
@@ -39,9 +39,9 @@ describe('map', () => {
   it('add item', () => {
     expect(
       map({
-        addActionTypes: [types.ACTION_TYPE_1],
+        addActionTypes: [ACTION_TYPE_1],
       })(undefined, {
-        type: types.ACTION_TYPE_1,
+        type: ACTION_TYPE_1,
         payload: item,
       })
     ).toEqual(map1);
@@ -50,9 +50,9 @@ describe('map', () => {
   it('change item', () => {
     expect(
       map({
-        changeActionTypes: [types.ACTION_TYPE_1],
+        changeActionTypes: [ACTION_TYPE_1],
       })(map1, {
-        type: types.ACTION_TYPE_1,
+        type: ACTION_TYPE_1,
         payload: changedItem,
       })
     ).toEqual(map1Changed);
@@ -61,9 +61,9 @@ describe('map', () => {
   it('remove item', () => {
     expect(
       map({
-        removeActionTypes: [types.ACTION_TYPE_1],
+        removeActionTypes: [ACTION_TYPE_1],
       })(map1, {
-        type: types.ACTION_TYPE_1,
+        type: ACTION_TYPE_1,
         payload: {id: key}
       })
     ).toEqual(map0);

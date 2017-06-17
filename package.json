@@ -5,32 +5,38 @@
   "main": "lib/index.js",
   "module": "src/index.js",
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "test": "rm -rf coverage && jest --verbose --coverage src",
+    "build": "rm -rf lib && babel src --out-dir lib --ignore __tests__"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codologytools/redux-data-structures.git"
+    "url": "git+https://github.com/PacificCodology/redux-data-structures.git"
   },
   "keywords": [
     "redux",
     "reducer",
     "data",
     "structure",
+    "common",
+    "standard",
     "boolean",
-    "counter",
-    "map",
-    "queue",
-    "set",
     "toggle",
+    "counter",
+    "list",
+    "queue",
+    "stack",
+    "map",
+    "set",
     "value"
   ],
   "author": "Adrien Trouillaud",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/codologytools/redux-data-structures/issues"
+    "url": "https://github.com/PacificCodology/redux-data-structures/issues"
   },
-  "homepage": "https://github.com/codologytools/redux-data-structures#readme",
+  "homepage": "https://github.com/PacificCodology/redux-data-structures#readme",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.1",
     "jest": "^20.0.4"

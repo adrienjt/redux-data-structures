@@ -3,3 +3,9 @@ node_modules
 
 # OSX
 .DS_Store
+
+# Jest
+coverage
+
+# Babel
+lib

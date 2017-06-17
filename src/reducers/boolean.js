@@ -4,6 +4,8 @@ export default ({
   additionalConditionToTrue = () => true,
   falseActionTypes = [],
   additionalConditionToFalse = () => true,
+  toggleActionTypes = [],
+  resetActionTypes = [],
 }) => (
   state = initialState,
   action,
@@ -13,6 +15,10 @@ export default ({
     return true;
   } else if (falseActionTypes.includes(type) && additionalConditionToFalse(action)) {
     return false;
+  } else if (toggleActionTypes.includes(type)) {
+    return !state;
+  } else if (resetActionTypes.includes(type)) {
+    return initialState;
   } else {
     return state;
   }
