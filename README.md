@@ -3,7 +3,7 @@
 ## Introduction
 
 Redux Data Structures is a library of higher-order functions with the following signature:
-```
+```javascript
 { ...options } => (state, action) => state
 ```
 Let's call them _reducer makers_.
@@ -20,7 +20,7 @@ npm install --save redux-data-structures
 
 Here's an example from the [Redux README](https://github.com/reactjs/redux), rewritten with Redux Data Structures:
 
-```
+```javascript
 import { createStore } from 'redux';
 import { counter } from 'redux-data-structures';
 
@@ -45,7 +45,7 @@ store.dispatch({ type: 'DECREMENT' });
 
 Here's a more advanced example--with the same reducer maker--of a counter from 10 to 0, decreasing as a function of the action payload, then reset, representing life points for example:
 
-```
+```javascript
 import { createStore } from 'redux';
 import { counter } from 'redux-data-structures';
 
@@ -53,7 +53,7 @@ const lifePoints = counter({
   initialState: 10,
   decrementActionTypes: ['PUNCH', 'KICK'],
   decrement: action => action.value,
-  min: () => 10, // action => number
+  min: () => 0, // action => number
   resetActionTypes: ['INSERT_COIN'],
 });
 
@@ -73,7 +73,7 @@ store.dispatch({ type: 'INSERT_COIN' });
 
 Let's build a classic todo app with Redux Data Structures:
 
-```
+```javascript
 import { createStore, combineReducers } from 'redux';
 import { map, set, value } from 'redux-data-structures';
 
@@ -85,13 +85,13 @@ const todos = map({
 const completedTodos = set({
   toggleActionTypes: ['TOGGLE_TODO'],
   removeActionTypes: ['REMOVE_TODO'],
-  keyGetter = action => action.payload.id,
+  keyGetter: action => action.payload.id,
 });
 
 const visibilityFilter = value({
   initialState: 'SHOW_ALL',
   setActionTypes: ['SET_VISIBILITY_FILTER'],
-  valueGetter = action => action.payload.filter,
+  valueGetter: action => action.payload.filter,
 });
 
 const rootReducer = combineReducers({
@@ -109,7 +109,7 @@ That's all for the store! We've relied heavily on the reducer makers' default op
 
 Now let's subscribe to the store and dispatch a few actions:
 
-```
+```javascript
 store.subscribe(() => { console.log(JSON.stringify(store.getState(), null, 2)); });
 
 store.dispatch({
@@ -120,73 +120,83 @@ store.dispatch({
   },
 });
 // {
-//   todos: {
-//     byId: {
-//       0: {
-//         id: 0,
-//         text: 'Go fishing',
-//       },
+//   "todos": {
+//     "byId": {
+//       "0": {
+//         "id": 0,
+//         "text": "Go fishing"
+//       }
 //     },
-//     allIds: [0],
+//     "allIds": [
+//       0
+//     ]
 //   },
-//   completedTodos: {},
-//   visibilityFilter: 'SHOW_ALL',
+//   "completedTodos": {},
+//   "visibilityFilter": "SHOW_ALL"
 // }
 ```
 
 Notice that `todos` is [normalized, for the reasons explained in the Redux documentation](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html).
 
-```
+```javascript
 store.dispatch({
   type: 'TOGGLE_TODO',
   payload: { id: 0 },
 });
 // {
-//   todos: {
-//     byId: {
-//       0: {
-//         id: 0,
-//         text: 'Go fishing',
-//       },
+//   "todos": {
+//     "byId": {
+//       "0": {
+//         "id": 0,
+//         "text": "Go fishing"
+//       }
 //     },
-//     allIds: [0],
+//     "allIds": [
+//       0
+//     ]
 //   },
-//   completedTodos: { 0 },
-//   visibilityFilter: 'SHOW_ALL',
+//   "completedTodos": {
+//     "0": true
+//   },
+//   "visibilityFilter": "SHOW_ALL"
 // }
 ```
 
 Compared to the original Redux Todo example, we've separated the Todo items (id, text) from their completion state. If needed, they could be combined with a [selector](http://redux.js.org/docs/recipes/ComputingDerivedData.html).
 
-```
+```javascript
 store.dispatch({
   type: 'SET_VISIBILITY_FILTER',
   payload: { filter: 'SHOW_COMPLETED' },
 });
 // {
-//   todos: {
-//     byId: {
-//       0: {
-//         id: 0,
-//         text: 'Go fishing',
-//       },
+//   "todos": {
+//     "byId": {
+//       "0": {
+//         "id": 0,
+//         "text": "Go fishing"
+//       }
 //     },
-//     allIds: [0],
+//     "allIds": [
+//       0
+//     ]
 //   },
-//   completedTodos: { 0 },
-//   visibilityFilter: 'SHOW_COMPLETED',
+//   "completedTodos": {
+//     "0": true
+//   },
+//   "visibilityFilter": "SHOW_COMPLETED"
 // }
 store.dispatch({
   type: 'REMOVE_TODO',
   payload: { id: 0 },
 });
 // {
-//   todos: {
-//     byId: {},
-//     allIds: [],
+//   "todos": {
+//     "byId": {},
+//     "allIds": []
 //   },
-//   completedTodos: {},
-//   visibilityFilter: 'SHOW_COMPLETED',
+//   "completedTodos": {},
+//   "visibilityFilter": "SHOW_COMPLETED"
 // }
 ```
 
@@ -208,7 +218,7 @@ All data structures can be reset to their initial state, and, if applicable (for
 ## API
 
 Each reducer maker is a higher-order function of a single `options` object and returns a reducer:
-```
+```javascript
 { ...options } => (state, action) => state
 ```
 
@@ -220,7 +230,7 @@ Each category of actions, e.g., `decrementActionTypes`, is an array of action ty
 
 ### Boolean
 
-```
+```javascript
 {
   initialState = false,
   trueActionTypes = [],
@@ -234,7 +244,7 @@ Each category of actions, e.g., `decrementActionTypes`, is an array of action ty
 
 `additionalConditionToTrue` and `additionalConditionToFalse` are functions of `action` and are used as such:
 
-```
+```javascript
 // ...
 if (trueActionTypes.includes(action.type) && additionalConditionToTrue(action)) {
   return true;
@@ -248,7 +258,7 @@ The default `() => true` is equivalent to no additional condition.
 
 ### Counter
 
-```
+```javascript
 {
   initialState = 0,
   incrementActionTypes = [],
@@ -265,7 +275,7 @@ The default `() => true` is equivalent to no additional condition.
 
 ### List
 
-```
+```javascript
 {
   initialState = [],
   enqueueActionTypes = [],
@@ -282,7 +292,7 @@ A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionType
 
 ### Map
 
-```
+```javascript
 {
   initialState = {
     byId: {},
@@ -305,7 +315,7 @@ The default `keyGetter` assumes that the action payload has an `id` property. Th
 
 ### Set
 
-```
+```javascript
 {
   initialState = {},
   addActionTypes = [],
@@ -318,17 +328,17 @@ The default `keyGetter` assumes that the action payload has an `id` property. Th
 ```
 
 In Redux Data Structures, a set's state is a plain Javascript object with boolean properties, i.e. if and only if `key` is in the set, `key` is a property of `state` whose value is `true`. Example:
-```
+```javascript
 { key: true }
 ```
 When a key is removed from the set, the corresponding property is deleted from the state object:
-```
+```javascript
 {}
 ```
 
 ### Value
 
-```
+```javascript
 {
   initialState = null,
   setActionTypes = [],

@@ -1,6 +1,6 @@
 {
   "name": "redux-data-structures",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Creator functions for common reducers",
   "main": "lib/index.js",
   "module": "src/index.js",

@@ -9,13 +9,13 @@ const todos = map({
 const completedTodos = set({
   toggleActionTypes: ['TOGGLE_TODO'],
   removeActionTypes: ['REMOVE_TODO'],
-  keyGetter = action => action.payload.id,
+  keyGetter: action => action.payload.id,
 });
 
 const visibilityFilter = value({
   initialState: 'SHOW_ALL',
   setActionTypes: ['SET_VISIBILITY_FILTER'],
-  valueGetter = action => action.payload.filter,
+  valueGetter: action => action.payload.filter,
 });
 
 const rootReducer = combineReducers({
