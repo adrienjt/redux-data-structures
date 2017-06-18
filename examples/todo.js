@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer);
 
-store.subscribe(() => { console.log(store.getState()); });
+store.subscribe(() => { console.log(JSON.stringify(store.getState(), null, 2)); });
 
 store.dispatch({
   type: 'ADD_TODO',

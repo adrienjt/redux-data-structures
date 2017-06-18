@@ -6,9 +6,9 @@ Redux Data Structures is a library of higher-order functions with the following 
 ```
 { ...options } => (state, action) => state
 ```
-We call them _reducer makers_.
+Let's call them _reducer makers_.
 
-Reducer makers help create common reducers like counters, maps, lists (queues, stacks), sets, etc. We found that most application states can be built by combining a handful of these standardized building blocks.
+Reducer makers help create common reducers like counters, maps, lists (queues, stacks), sets, etc. Most application states can be built by combining a handful of these standardized building blocks.
 
 Redux Data Structures was developed for Redux, but does not depend on it. It can actually be used with any reactive state container, even a custom one; Redux Data Structures doesn't have any dependency.
 
@@ -104,13 +104,13 @@ const store = createStore(rootReducer);
 ```
 
 That's all for the store! We've relied heavily on the reducer makers' default options, which presume that:
-1. actions adhere to the [Flux Action Standard](https://github.com/acdlite/flux-standard-action) (actions are plain Javascript object with whose format is `{type, payload}`),
-1. and Todos are identified by an `id` property, used as a key in the `todos` map and the `completetedTodos` set.
+1. actions adhere to the [Flux Action Standard](https://github.com/acdlite/flux-standard-action) (actions are plain Javascript object with a `type` and `payload` properties),
+1. and Todos are identified by an `id` property, used as a key in the `todos` map (and the `completetedTodos` set).
 
 Now let's subscribe to the store and dispatch a few actions:
 
 ```
-store.subscribe(() => { console.log(store.getState()); });
+store.subscribe(() => { console.log(JSON.stringify(store.getState(), null, 2)); });
 
 store.dispatch({
   type: 'ADD_TODO',
@@ -156,7 +156,7 @@ store.dispatch({
 // }
 ```
 
-Compared to the original Redux Todo example, we separate the Todo items (id, text) from their completion state. If needed, they could be combined with a [selector](http://redux.js.org/docs/recipes/ComputingDerivedData.html).
+Compared to the original Redux Todo example, we've separated the Todo items (id, text) from their completion state. If needed, they could be combined with a [selector](http://redux.js.org/docs/recipes/ComputingDerivedData.html).
 
 ```
 store.dispatch({
@@ -194,7 +194,7 @@ The `REMOVE_TODO` action is reduced both by the `todos` map and the `completedTo
 
 ## Data Structures
 
-So far, we've implemented the following data structures (corresponding action types are indicated in parentheses):
+So far, the following data structures have been implemented (corresponding action types are indicated in parentheses):
 
 - Boolean (set to true, set to false, toggle)
 - Counter (increment, decrement)
@@ -207,13 +207,16 @@ All data structures can be reset to their initial state, and, if applicable (for
 
 ## API
 
-Each reducer maker is a higher-order function taking in a single `options` object argument, and returning a reducer (signature: `(state, action) => state`).
+Each reducer maker is a higher-order function of a single `options` object and returns a reducer:
+```
+{ ...options } => (state, action) => state
+```
 
 For each reducer maker, we describe below how the `options` object is destructured, its default property values, and how some specific properties are used.
 
 Defaults can--and in a lot of cases __should__--be overridden.
 
-Each category of actions, e.g., `decrementActionTypes`, is an array of action types (i.e., strings), meaning that several action types can have the same result (cf. life points example above).
+Each category of actions, e.g., `decrementActionTypes`, is an array of action types (i.e., strings), so that several action types can have the same result (cf. [Configuring Data Structures, above](#configuring-data-structures), where both `PUNCH` and `KICK` decrement `lifePoints`).
 
 ### Boolean
 
@@ -275,7 +278,7 @@ The default `() => true` is equivalent to no additional condition.
 }
 ```
 
-A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionTypes` add items to the list, using the `itemGetter`, whose default considers the [Flux Action Standard](https://github.com/acdlite/flux-standard-action) `payload` as the item to add.
+A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionTypes` add items to the list, using the `itemGetter`. The default `itemGetter` adds the [Flux Action Standard](https://github.com/acdlite/flux-standard-action) `payload` to the list.
 
 ### Map
 
@@ -296,7 +299,9 @@ A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionType
 }
 ```
 
-`map` uses the [normalized state shape recommended by Redux](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html), as you can see from the `initialState`. The default `keyGetter` assumes that the action payload has an `id` property. The default `itemModifier` overwrites the item's properties (but does not delete the ones that have disappeared in the new action payload).
+`map` uses the [normalized state shape recommended by Redux](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html), as can be seen from the default `initialState`. Warning: if you overwrite `initialState`, use the same format!
+
+The default `keyGetter` assumes that the action payload has an `id` property. The default `itemModifier` overwrites the item's properties (but does not delete the ones that have disappeared in the new action payload).
 
 ### Set
 
@@ -312,11 +317,9 @@ A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionType
 }
 ```
 
-In Redux Data Structures, a set's state is a plain Javascript object. If and only if `key` is in the set, `key` is a property of `state` whose value is `true`. Example:
+In Redux Data Structures, a set's state is a plain Javascript object with boolean properties, i.e. if and only if `key` is in the set, `key` is a property of `state` whose value is `true`. Example:
 ```
-{
-  [key]: true
-}
+{ key: true }
 ```
 When a key is removed from the set, the corresponding property is deleted from the state object:
 ```
@@ -342,7 +345,7 @@ Redux Data Structures doesn't focus on performance, but on developer productivit
 
 ## Contributing
 
-The code is written in modern Javascript, transpiled with Babel, and using Jest for tests. Pull requests are welcome.
+The code is written in modern Javascript, transpiled with Babel, using Jest for tests. Pull requests are welcome.
 
 ## License
 
