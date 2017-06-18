@@ -1,0 +1,14 @@
+# npm
+node_modules
+
+# OSX
+.DS_Store
+
+# Jest
+**/__tests__
+coverage
+
+# Git
+.gitignore
+
+examples
