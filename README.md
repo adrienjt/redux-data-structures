@@ -2,11 +2,7 @@
 
 ## Introduction
 
-Redux Data Structures is a library of higher-order functions with the following signature:
-```javascript
-{ ...options } => (state, action) => state
-```
-Let's call them _reducer makers_.
+Redux Data Structures is a library of _reducer makers_.
 
 Reducer makers help create common reducers like counters, maps, lists (queues, stacks), sets, etc. Most application states can be built by combining a handful of these standardized building blocks.
 
