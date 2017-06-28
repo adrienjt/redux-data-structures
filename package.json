@@ -1,6 +1,6 @@
 {
   "name": "redux-data-structures",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Creator functions for common reducers",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PacificCodology/redux-data-structures.git"
+    "url": "git+https://github.com/adrienjt/redux-data-structures.git"
   },
   "keywords": [
     "redux",
@@ -32,9 +32,9 @@
   "author": "Adrien Trouillaud",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PacificCodology/redux-data-structures/issues"
+    "url": "https://github.com/adrienjt/redux-data-structures/issues"
   },
-  "homepage": "https://github.com/PacificCodology/redux-data-structures#readme",
+  "homepage": "https://github.com/adrienjt/redux-data-structures#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
