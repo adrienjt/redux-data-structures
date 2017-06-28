@@ -100,7 +100,7 @@ const store = createStore(rootReducer);
 ```
 
 That's all for the store! We've relied heavily on the reducer makers' default options, which presume that:
-1. actions adhere to the [Flux Action Standard](https://github.com/acdlite/flux-standard-action) (actions are plain Javascript object with a `type` and `payload` properties),
+1. actions adhere to the [Flux Standard Action](https://github.com/acdlite/flux-standard-action) (actions are plain Javascript object with a `type` and `payload` properties),
 1. and Todos are identified by an `id` property, used as a key in the `todos` map (and the `completetedTodos` set).
 
 Now let's subscribe to the store and dispatch a few actions:
@@ -284,7 +284,7 @@ The default `() => true` is equivalent to no additional condition.
 }
 ```
 
-A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionTypes` add items to the list, using the `itemGetter`. The default `itemGetter` adds the [Flux Action Standard](https://github.com/acdlite/flux-standard-action) `payload` to the list.
+A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionTypes` add items to the list, using the `itemGetter`. The default `itemGetter` adds the [Flux Standard Action](https://github.com/acdlite/flux-standard-action) `payload` to the list.
 
 ### Map
 
