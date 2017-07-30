@@ -1,12 +1,14 @@
 {
   "name": "redux-data-structures",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Creator functions for common reducers",
   "main": "lib/index.js",
-  "module": "src/index.js",
+  "module": "es6/index.js",
   "scripts": {
     "test": "rm -rf coverage && jest --verbose --coverage src",
-    "build": "rm -rf lib && babel src --out-dir lib --ignore __tests__"
+    "build:es6": "rm -rf es6 && BABEL_ENV=es6 babel src --out-dir es6 --ignore __tests__",
+    "build:commonjs": "rm -rf lib && BABEL_ENV=commonjs babel src --out-dir lib --ignore __tests__",
+    "build": "npm run build:es6 && npm run build:commonjs"
   },
   "repository": {
     "type": "git",
