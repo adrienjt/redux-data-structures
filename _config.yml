@@ -5,8 +5,4 @@ gems:
 title: Redux Data Structures
 description: Creator functions for common reducers
 url: https://redux-data-structures.js.org
-seo:
-  links:
-    - https://www.npmjs.com/package/redux-data-structures
-    - https://github.com/adrienjt/redux-data-structures
 google_analytics: UA-103644986-1

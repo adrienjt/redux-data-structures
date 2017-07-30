@@ -1,3 +1,10 @@
+---
+seo:
+  links:
+    - https://www.npmjs.com/package/redux-data-structures
+    - https://github.com/adrienjt/redux-data-structures
+---
+
 # Redux Data Structures
 
 ## Introduction
