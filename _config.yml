@@ -5,10 +5,6 @@ gems:
 title: Redux Data Structures
 description: Creator functions for common reducers
 url: https://redux-data-structures.js.org
-social:
-  name: Adrien Trouillaud
-  links:
-    - https://www.linkedin.com/in/trouillaud/
 seo:
   links:
     - https://www.npmjs.com/package/redux-data-structures
