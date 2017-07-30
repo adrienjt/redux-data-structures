@@ -1,1 +1,13 @@
 theme: jekyll-theme-cayman
+gems:
+  - jekyll-seo-tag
+title: Redux Data Structures
+description: Higher-order functions to create common reducers
+url: redux-data-structures.js.org
+social:
+  name: Adrien Trouillaud
+  links:
+    - https://www.linkedin.com/in/trouillaud/
+seo:
+  links:
+    - https://www.npmjs.com/package/redux-data-structures
