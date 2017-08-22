@@ -1,6 +1,9 @@
 {
   "env": {
-    "es6": {
+    "es": {
+      "presets": [
+        ["env", {"modules": false}]
+      ],
       "plugins": [
         ["transform-object-rest-spread", {"useBuiltIns": true}]
       ]

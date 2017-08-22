@@ -12,3 +12,8 @@ coverage
 .gitignore
 
 examples
+
+# GitHub Pages / Jekyll
+_config.yml
+_layouts
+CNAME
