@@ -295,11 +295,20 @@ A list can be used as a queue or stack. `enqueueActionTypes` and `pushActionType
     allIds: [],
   },
   addActionTypes = [],
+  addManyActionTypes = [],
   changeActionTypes = [],
+  changeManyActionTypes = [],
   removeActionTypes = [],
+  removeManyActionTypes = [],
   keyGetter = action => action.payload.id,
   itemGetter = action => ({...action.payload}),
   itemModifier = (item, action) => ({...item, ...action.payload}),
+  addChangeItemsGetter = action => action.payload.reduce((result, item) => ({
+    ...result,
+    [item.id]: item
+  }), {}),
+  itemsModifier = (item, newItem) => ({...item, ...newItem}),
+  removeKeysGetter = action => action.payload,
   resetActionTypes = [],
   emptyActionTypes = [],
 }
